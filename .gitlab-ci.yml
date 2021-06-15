@@ -1,0 +1,17 @@
+image: google/cloud-sdk #Python
+
+before_script:
+  - echo $GCLOUD_SERVICE_KEY > $HOME/gcloud-service-key.json
+  - gcloud auth activate-service-account --key-file=$HOME/gcloud-service-key.json
+  - gcloud config set project sas-engenharia-analytics
+  # Environment Config
+  - echo "" > $HOME/.env.yaml
+  - 'echo "SENDGRID_KEY: \"$SENDGRID_KEY\"" >> $HOME/.env.yaml'
+
+deploy:
+  stage: deploy
+  only:
+    - master
+  script:
+    - rm -rf *.code-workspace .gitlab-ci.yml .editorconfig .eslintignore .eslintrc .mocharc
+    - gcloud functions deploy sas_seguranca_lgpd_predict_tag --env-vars-file=.env.yaml --runtime=python38 --memory=1GB --timeout=540s --max-instances=3 --retry --stage-bucket=sas-engenharia-analytics-bitbucket --trigger-topic=table_info_lgpd --entry-point=sas_seguranca_lgpd_predict_tag
