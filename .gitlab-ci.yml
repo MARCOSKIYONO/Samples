@@ -14,4 +14,5 @@ deploy:
     - master
   script:
     - rm -rf *.code-workspace .gitlab-ci.yml .editorconfig .eslintignore .eslintrc .mocharc
-    - gcloud functions deploy sas_seguranca_lgpd_predict_tag --env-vars-file=.env.yaml --runtime=python38 --memory=1GB --timeout=540s --max-instances=3 --retry --stage-bucket=sas-engenharia-analytics-bitbucket --trigger-topic=table_info_lgpd --entry-point=sas_seguranca_lgpd_predict_tag
+    - gcloud functions deploy load_covid_data --env-vars-file=.env.yaml --runtime=python38 --memory=1GB --region=us-central1 --timeout=540s --max-instances=3 --retry --trigger-resource gs://rep_einstein_kiyono/ --trigger-event google.storage.object.finalize --entry-point=load_covid_data
+
