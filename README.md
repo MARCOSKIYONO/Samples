@@ -49,18 +49,11 @@
     gsutil mb -l us-central1 gs://rep_einstein_kiyono/
     ```
 
-1. Create the bucket...
-
-    ```
-    gsutil mb -l us-central1 gs://rep_einstein_kiyono/
-    ```
-
 1. Create the empty folder...
 
     ```
-	mkdir input 
-	touch input/file1
-	gsutil cp -r test gs://rep_einstein_kiyono/
+	touch emptyfile
+	gsutil cp emptyfile gs://rep_einstein_kiyono/input/
     ```
 
 1. Deploy Program that will be triggered by the upload files in gs://rep_einstein_kiyono/input
@@ -75,22 +68,4 @@
     gsutil cp <file_name>.csv gs://rep_einstein_kiyono/input
     ```	
 
-## Contributing
-
-Contributions welcome! See the [Contributing Guide](CONTRIBUTING.md).
-
-[slack_badge]: https://img.shields.io/badge/slack-Google%20Cloud%20Platform-E01563.svg	
-[slack_link]: https://googlecloud-community.slack.com/
-[cloud]: https://cloud.google.com/
-[cloud_python_setup]: https://cloud.google.com/python/setup
-[auth_command]: https://cloud.google.com/sdk/gcloud/reference/beta/auth/application-default/login
-[gcp_auth]: https://cloud.google.com/docs/authentication#projects_and_resources
-
-[py-2.7-shield]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-2.7.svg
-[py-2.7-link]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-2.7.html
-[py-3.6-shield]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-3.6.svg
-[py-3.6-link]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-3.6.html
-[py-3.7-shield]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-3.7.svg
-[py-3.7-link]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-3.7.html
-[py-3.8-shield]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-3.8.svg
-[py-3.8-link]: https://storage.googleapis.com/cloud-devrel-public/python-docs-samples/badges/py-3.8.html
+## contato kiyono.marcos@gmail.com
