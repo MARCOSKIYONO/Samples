@@ -22,7 +22,7 @@
 
     Read more about [Google Cloud Platform Authentication][gcp_auth].
 
-## How to run a sample
+## How to prepare the environment and deploy the programs
 
 1. Change directory to one of the sample folders, e.g. `logging/cloud-client`:
 
@@ -61,8 +61,11 @@
     ```
 	functions deploy load_covid_data --env-vars-file=.env.yaml --runtime=python38 --memory=1GB --region=us-central1 --timeout=540s --max-instances=3 --retry --trigger-resource gs://rep_einstein_kiyono/ --trigger-event google.storage.object.finalize --entry-point=load_covid_data
     ```
-	
-1. Upload zip file to rep_einstein_kiyono withing folder /input 
+
+
+## How to run the program
+
+1. Upload zip file to Bucket/folder "rep_einstein_kiyono/input" 
 
     ```
     gsutil cp <file_name>.csv gs://rep_einstein_kiyono/input
