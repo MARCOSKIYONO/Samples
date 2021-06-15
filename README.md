@@ -43,25 +43,37 @@
     pip install -r requirements.txt
     ```
 
-1. Run the sample:
+1. Create the bucket...
 
     ```
-    python snippets.py
+    gsutil mb -l us-central1 gs://rep_einstein_kiyono/
+    ```
+
+1. Create the bucket...
+
+    ```
+    gsutil mb -l us-central1 gs://rep_einstein_kiyono/
+    ```
+
+1. Create the empty folder...
+
+    ```
+	mkdir input 
+	touch input/file1
+	gsutil cp -r test gs://rep_einstein_kiyono/
+    ```
+
+1. Deploy Program that will be triggered by the upload files in gs://rep_einstein_kiyono/input
+
+    ```
+	functions deploy load_covid_data --env-vars-file=.env.yaml --runtime=python38 --memory=1GB --region=us-central1 --timeout=540s --max-instances=3 --retry --trigger-resource gs://rep_einstein_kiyono/ --trigger-event google.storage.object.finalize --entry-point=load_covid_data
     ```
 	
-# Create the bucket...
-gsutil mb -l us-central1 gs://rep_einstein_kiyono/
+1. Upload zip file to rep_einstein_kiyono withing folder /input 
 
-# Create the empty folder...
-mkdir input 
-touch input/file1
-gsutil cp -r test gs://rep_einstein_kiyono/
-
-# Upload your file...
-gsutil cp <file_name>.csv gs://<bucket_name>/
-
-# Deploy de function 
-gcloud functions deploy load_covid_data --env-vars-file=.env.yaml --runtime=python38 --memory=1GB --region=us-central1 --timeout=540s --max-instances=3 --retry --trigger-resource gs://rep_einstein_kiyono/ --trigger-event google.storage.object.finalize --entry-point=load_covid_data
+    ```
+    gsutil cp <file_name>.csv gs://rep_einstein_kiyono/input
+    ```	
 
 ## Contributing
 
