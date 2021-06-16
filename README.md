@@ -68,7 +68,9 @@
 1. Upload zip file to Bucket/folder "rep_einstein_kiyono/input" 
 
     ```
-    gsutil cp <file_name>.csv gs://rep_einstein_kiyono/input
+    gsutil cp EINSTEINAgosto.zip gs://rep_einstein_kiyono/input
     ```	
+	* TODO 
+	* Create webscraping to download files direct from website to bucket
 
 ## contato kiyono.marcos@gmail.com
