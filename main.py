@@ -70,7 +70,7 @@ def run():
         if zipbytes = None:
             raise Exception('Zip file not found')
   
-        input_filename_patients, input_filename_exams = get_zip_files_name(zipbytes)
+        input_filename_patients, input_filename_exams = get_zip_files_name(zipbytes, object_list)
         
         if input_filename_patients == None or input_filename_patients == '':
             raise Exception('Patiences file not found')

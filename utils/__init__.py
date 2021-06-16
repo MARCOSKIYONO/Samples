@@ -50,7 +50,7 @@ def get_zip_files_name(zipbytes):
             # Get list of files names in zip
             listOfiles = zipObj.namelist()
 
-            matching = [s for s in listOfiles if any(xs in s for xs in object_list)]
+            matching = [s for s in listOfiles if any(xs in s for xs in object_list, object_list)]
 
             for item in matching:
                 if object_list[0] in item:
