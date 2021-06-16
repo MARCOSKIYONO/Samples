@@ -116,7 +116,7 @@ def run():
             patience_stage_parse = patience_stage_split | 'FormatToDictPatients' >> beam.Map(lambda x: {"id_paciente": x[0], "ic_sexo": x[1], "aa_nascimento": x[2], "cd_uf": x[3], "cd_municipio": x[4], "cd_cepreduzido": x[5], "cd_pais": x[6], "data_carga": processing_date})     
             patience_stage_file = patience_stage_parse | 'Output: Export to Parquet' >> beam.io.parquetio.WriteToParquet(
                         file_path_prefix='gs://{}/{}/{}/{}/{}'.format(bucket,RAW_FOLDERNAME,patience_object,entity,patience_file_prefix),
-                        schema=get_schema_patience_raw,
+                        schema=get_schema_patience_raw(),
                         record_batch_size=10000,
                         file_name_suffix='.parquet')
 
@@ -129,7 +129,7 @@ def run():
             exam_stage_convert = exam_stage_parse | 'Parse raw Patients' >> beam.ParDo(ParseStageExams())
             exam_stage_file = exam_stage_convert | 'Output: Export to Parquet' >> beam.io.parquetio.WriteToParquet(
                         file_path_prefix='gs://{}/{}/{}/{}/{}'.format(bucket,RAW_FOLDERNAME,exam_object,entity,exam_file_prefix),
-                        schema=get_schema_patience_stage,
+                        schema=get_schema_patience_stage(),
                         record_batch_size=200000,
                         file_name_suffix='.parquet')
 
@@ -157,7 +157,7 @@ def run():
           patience_raw_rejected = patience_raw_parse | 'Rejecteds Raw Patients' >> beam.ParDo(FiltersRejectedPatiences())
           patience_raw_hot_file = patience_raw_hot | 'Export Hot Exams Parquet' >> beam.io.parquetio.WriteToParquet(
                   file_path_prefix='gs://{}/{}/{}/{}_{}'.format(bucket,CURATED_HOT_FOLDERNAME,patience_object,entity,patience_file_prefix),
-                  schema=get_schema_exam_stage,
+                  schema=get_schema_exam_stage(),
                   record_batch_size=10000,
                   file_name_suffix='.parquet')
           patience_raw_rejected_file = patience_raw_rejected | 'Export rejected Exams Parquet' >> beam.io.parquetio.WriteToParquet(
@@ -175,12 +175,12 @@ def run():
           exam_raw_rejected = exam_raw_parse | 'Rejecteds Raw Exams' >> beam.ParDo(FiltersRejectedExams())
           exam_raw_hot_file = exam_raw_hot | 'Export Hot Exams Parquet' >> beam.io.parquetio.WriteToParquet(
                   file_path_prefix='gs://{}/{}/{}/{}_{}'.format(bucket,CURATED_HOT_FOLDERNAME,exam_object,entity,exam_file_prefix),
-                  schema=get_schema_exam_raw,
+                  schema=get_schema_exam_raw(),
                   record_batch_size=10000,
                   file_name_suffix='.parquet')
           exam_raw_rejected_file = exam_raw_rejected | 'Export rejected Exams Parquet' >> beam.io.parquetio.WriteToParquet(
                 file_path_prefix='gs://{}/{}/{}/{}_{}'.format(bucket,CURATED_REJECTED_FOLDERNAME,exam_object,entity,exam_file_prefix),
-                schema=get_schema_exam_raw,
+                schema=get_schema_exam_raw(),
                 record_batch_size=100000,
                 file_name_suffix='.parquet')
 
@@ -218,12 +218,12 @@ def run():
           #imprime = exams_per_patient_sp | "print" >> beam.Map(printfn)
           exams_per_patient_sp_file = exams_per_patient_sp | 'Export File Patients SP' >> beam.io.parquetio.WriteToParquet(
                   file_path_prefix='gs://{}/{}/exames_por_paciente_sp'.format(bucket,SERVICE_FOLDERNAME),
-                  schema=get_schema_curated,
+                  schema=get_schema_curated(),
                   record_batch_size=100,
                   file_name_suffix='.parquet')
           exams_per_patient_not_sp_file = exams_per_patient_not_sp | 'Export File Patients Not SP' >> beam.io.parquetio.WriteToParquet(
                   file_path_prefix='gs://{}/{}/exames_por_paciente'.format(bucket,SERVICE_FOLDERNAME),
-                  schema=get_schema_curated,
+                  schema=get_schema_curated(),
                   record_batch_size=10000,
                   file_name_suffix='.parquet') 
 
