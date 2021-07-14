@@ -1,4 +1,4 @@
-# Teste para seleção de Engenheiro de Dados - Sociedade Beneficiente Israelita Brasileira
+# exemplo GCP DataFlow/BigQuert/Python para consumo de dados de COVID
 
 
 ## Setup
